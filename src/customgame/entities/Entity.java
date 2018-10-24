@@ -12,15 +12,13 @@ import java.awt.Rectangle;
 
 public abstract class Entity 
 {
-    private EntityManager entityManager;
     private String name;
     protected int x, y, width, height;
     protected Rectangle bounds;
     private boolean active;
     
-    public Entity(EntityManager entityManager, String name, int x, int y, int width, int height)
+    public Entity(String name, int x, int y, int width, int height)
     {
-        this.entityManager = entityManager;
         this.name = name;
         this.x = x;
         this.y = y;
@@ -33,7 +31,7 @@ public abstract class Entity
     public abstract void update();
     public abstract void render(Graphics g, int xOfset, int yOfset);
     
-    public boolean checkEntityCollisions(int xOfset, int yOfset)
+    public boolean checkEntityCollisions(EntityManager entityManager, int xOfset, int yOfset)
     {
         for(Entity e: entityManager.getEntities())
         {
@@ -45,9 +43,9 @@ public abstract class Entity
         return false;
     } 
     
-    public void drawBounds(Graphics g, int xOfset, int yOfset)
+    public void drawBounds(Graphics g, EntityManager entityManager, int xOfset, int yOfset)
     {
-        if(!checkEntityCollisions(0,0))
+        if(!checkEntityCollisions(entityManager,0,0))
             g.setColor(Color.GREEN);
         else
             g.setColor(Color.RED);
