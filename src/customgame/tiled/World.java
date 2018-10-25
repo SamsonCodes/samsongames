@@ -4,7 +4,6 @@
 
 package customgame.tiled;
 
-import customgame.XMLReader;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.io.BufferedReader;
