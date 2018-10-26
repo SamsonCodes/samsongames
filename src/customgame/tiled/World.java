@@ -28,6 +28,27 @@ public class World
         loadTmx(filePath);
     }
     
+    public void loadTmx2(ArrayList<String> file)
+    {
+        String mapElement = XMLReader.getElementPlus("map", file);
+        String widthStr = XMLReader.getAttribute("width", mapElement);
+        width = Integer.parseInt(widthStr);
+        String heightStr = XMLReader.getAttribute("height", mapElement);
+        height = Integer.parseInt(heightStr);
+        System.out.println("Width = " + width);
+        System.out.println("Height = " + height);
+        ArrayList<String> layers = XMLReader.getElementsPlus("layer", file);
+        ArrayList<String> layerData = new ArrayList();
+        int i = 0;
+        for(String layer: layers)
+        {
+            layerData.add(XMLReader.getElementPlus("data", layer));
+            System.out.println("Layer = " + layer);
+            System.out.println("LayerData = " + layerData.get(i));
+            i++;
+        }
+    }
+    
     private void loadTmx(String path)
     {
         try 
