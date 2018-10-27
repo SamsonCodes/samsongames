@@ -22,13 +22,13 @@ public class XMLReader
         String element = "";
         String currentTag = "";
         boolean tagStart = false;
-        boolean startFound = false;
+        boolean startTagFound = false;
         for(int elemId = 0; elemId < source.size(); elemId++)
         {
             int tagStartId = 0;
             for(int charId = 0; charId < source.get(elemId).length(); charId ++)
             {
-                if(!startFound)
+                if(!startTagFound)
                 {
                     if(!tagStart)
                     {
@@ -47,7 +47,7 @@ public class XMLReader
                             tagStart = false;
                             if(currentTag.equals(tag))
                             {
-                                startFound = true;
+                                startTagFound = true;
                             }
                             else
                             {
@@ -61,7 +61,7 @@ public class XMLReader
                             if(currentTag.equals(tag))
                             {
                                 //System.out.println("currentTag = \"" + currentTag +"\"");
-                                startFound = true;
+                                startTagFound = true;
                             }
                             else
                             {
@@ -75,7 +75,7 @@ public class XMLReader
                         }                        
                     }
                 }
-                else //if startFound
+                else //if startTagFound
                 {
                     element+=source.get(elemId).charAt(charId);
                     if(noEndTag)
@@ -87,7 +87,7 @@ public class XMLReader
                             //System.out.println("element = \"" + element + "\"");
                             elements.add(element);
                             element = "";
-                            startFound = false;
+                            startTagFound = false;
                             currentTag = "";
                         }
                     }
@@ -109,7 +109,7 @@ public class XMLReader
                                 {
                                     elements.add(element);
                                     element = "";
-                                    startFound = false;
+                                    startTagFound = false;
                                 }
                                 currentTag = "";
                             }
@@ -155,29 +155,95 @@ public class XMLReader
     public static String getAttribute(String attriName, String element)
     {
         String attribute = "";
-        
-        boolean complete = false;
         if(element.contains(attriName + "="))
         {
             int index1 = element.indexOf(attriName + "=") + attriName.length()+2;
             int index2 = element.indexOf("\"", index1);
             attribute = element.substring(index1, index2);
-            complete = true;
         }
-        
         return attribute;
     }
     
     public static String stripTags(String tag, String element)
     {
-        if(element.contains("<" + tag + ">"))
+        if(element.contains("<" + tag + ">") && element.contains("</" + tag + ">"))
         {
             element = (element.replace("<" + tag + ">", "")).replace("</" + tag + ">", "");
         }
-        else if(element.contains("<" + tag + " "))
+        else if(element.contains("<" + tag + " ") && element.contains("</" + tag + ">"))
+        {
+            element = removeStartTag(tag, element);
+            element = element.replace("</" + tag + ">", "");
+        }
+        else if(element.contains("<" + tag + " ") && countChar('>',element) == 1) // &! element.contains("</" + tag + ">")
         {
             element = (element.replace("<" + tag + " ", "")).replace(">", "");
         }
+        else
+        {
+            System.out.println("XMLReader: stripTags: unknown input type: tag = " + tag + ", element = " + element);
+        }
         return element;
+    }
+    
+    private static String removeStartTag(String tag, String element)
+    {
+        String currentTag = "";
+        boolean tagStart = false;
+        boolean startTagFound = false;
+        boolean tagRemoved = false;
+        for(int i = 0; i < element.length(); i++)
+        {
+            if(!tagRemoved)
+            {
+                if(!startTagFound)
+                    if(!tagStart && element.charAt(i) == '<')
+                    {
+                        tagStart = true;
+                        currentTag += '<';
+                    }
+                    else if(tagStart)
+                    {
+                        currentTag+=element.charAt(i);
+                        if(currentTag.equals("<" + tag))
+                        {
+                            startTagFound = true;
+                        }
+                        else
+                        {
+                            if(element.charAt(i) == ' ' || element.charAt(i) == '>')
+                            {
+                                currentTag = "";
+                                tagStart = false;
+                            }
+                        }
+
+                    }
+                    else; //pick your nose
+                else //if startTagFound
+                {
+                    currentTag+=element.charAt(i);
+                    if(element.charAt(i) == '>')
+                    {
+                        element = element.replace(currentTag, "");
+                        tagRemoved = true;
+                    }
+                }
+            }
+            else
+                break;
+        }
+        return element;
+    }
+    
+    public static int countChar(char c, String s)
+    {
+        int amount = 0;
+        for(int i = 0; i < s.length(); i++)
+        {
+            if(s.charAt(i) == c)
+                amount++;
+        }
+        return amount;
     }
 }

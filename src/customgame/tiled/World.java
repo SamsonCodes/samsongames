@@ -42,10 +42,26 @@ public class World
         int i = 0;
         for(String layer: layers)
         {
-            layerData.add(XMLReader.getElementPlus("data", layer));
+            String data = XMLReader.getElementPlus("data", layer);
+            System.out.println("data = " + XMLReader.stripTags("data", data));
+            layerData.add(XMLReader.stripTags("data", data));
             System.out.println("Layer = " + layer);
             System.out.println("LayerData = " + layerData.get(i));
             i++;
+        }
+        tiles = new ArrayList();
+        for(int l = 0; l < layerData.size(); l++)
+        {
+            String[] numbers = layerData.get(l).split(",");
+            System.out.println("numbers");
+            for(String number: numbers) System.out.print(number + ",");
+            System.out.println("");
+            int[] tileLayer = new int[numbers.length];
+            for(int q = 0; q < numbers.length; q++)
+            {
+                tileLayer[q] = Integer.parseInt(numbers[q]);
+            }
+            tiles.add(tileLayer);
         }
     }
     
