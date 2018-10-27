@@ -6,25 +6,52 @@ package customgame.tiled;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class World 
 {
     private Tile[] palet;
     private ArrayList<TileLayer> tileLayers;
-    private int width, height, tileRenderSize;
+    private int width, height;
     private String name;
     
-    public World(Tile[] palet, int tileRenderSize, ArrayList<String> file, String name)
+    public World(String name, ArrayList<String> file, String tileSetPath)
     {
-        //loads from tmx file
-        this.palet = palet;
-        this.tileRenderSize = tileRenderSize;
-        this.name = name; //Just for differentiating between them and saving.
-        loadTmx2(file);
+        this.name = name;
+        loadMap(file, tileSetPath);
     }
     
-    private void loadTmx2(ArrayList<String> file)
+    public World(String name, String tmxPath, String tileSetPath)
+    {
+        this.name = name;
+        loadMap(loadTmx(tmxPath), tileSetPath);
+    }
+    
+    private ArrayList<String> loadTmx(String tmxPath)
+    {
+        ArrayList<String> worldData = new ArrayList();
+        try 
+        {
+            FileReader fileReader = new FileReader(tmxPath);
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            while((line = bufferedReader.readLine()) != null) 
+            {
+                worldData.add(line);
+            }
+        } 
+        catch (Exception ex) 
+        {
+            System.out.println("World: loadTmx: Error loading " + tmxPath);
+        }
+        return worldData;
+    }
+   
+    private void loadMap(ArrayList<String> file, String tileSetPath)
     {
         String mapElement = XMLReader.getElementPlus("map", file);
         String widthStr = XMLReader.getAttribute("width", mapElement);
@@ -51,81 +78,29 @@ public class World
             TileLayer tileLayer = new TileLayer(layerName, layerWidth, tileNumbers);      
             tileLayers.add(tileLayer);
         }
+        ArrayList<String> tileSetElements = XMLReader.getElementsPlus("tileset", file);
+        ArrayList<TileSet> tileSets = new ArrayList();
+        for(int i = 0; i < tileSetElements.size(); i++)
+        {
+            tileSets.add(new TileSet(tileSetElements.get(i), tileSetPath));
+        }
+        int tileCount = 0;
+        for(TileSet tileSet: tileSets)
+        {
+            tileCount+=tileSet.getTileCount();
+        }
+        palet = new Tile[tileCount + 1];
+        palet[0] = new Tile(null, false);
+        for(TileSet tileSet: tileSets)
+        {
+            for(int i = 0; i < tileSet.getTileCount(); i++)
+            {                
+                palet[i + tileSet.getFirstGid()] = tileSet.getTiles()[i];
+            }
+        }
     }
     
-//    private void loadTmx(String path)
-//    {
-//        try 
-//        { 
-//            FileReader fileReader = new FileReader(path);
-//            BufferedReader bufferedReader = new BufferedReader(fileReader);
-//            String line;
-//            int j = 0;      
-//            int jStart = 0;
-//            width = 0; 
-//            int[] tileLayer = null;
-//            boolean newLayer = false;
-//            while((line = bufferedReader.readLine()) != null) 
-//            {
-//                
-//                //splits line in individual Strings by tab entries
-//                String[] words = line.split(" ");
-//                //remove any empty strings caused by multiple tabs             
-//                                   
-//                for(int i = 0; i < words.length; i++)
-//                {
-//                    //Set map size
-//                    if(words[0].startsWith("<map")&&words[i].startsWith("width"))
-//                    {
-//                        width = Integer.parseInt(words[i].replaceAll("\\D+",""));
-//                    }
-//                    if(words[0].startsWith("<map")&&words[i].startsWith("height"))
-//                    {
-//                        height =  Integer.parseInt(words[i].replaceAll("\\D+",""));
-//                        
-//                    }
-//                    //Read: if line starts with number --> create map layer
-//                    if(!words[0].replaceAll("\\D+","").isEmpty())
-//                    {                        
-//                        if(jStart == 0)
-//                        {
-//                            jStart = j;
-//                            tileLayer = new int[width*height];
-//                            newLayer = true;
-//                            //System.out.println("jStart set to "+j);
-//                        }
-//                            
-//                        String[] numbers = words[i].split(",");
-//                        for(int q = 0; q < numbers.length; q++)
-//                        {
-//                            //System.out.println("("+width+") < width*height = "+(((j-jStart)*width+q) < width*height));
-//                            if(j-jStart < height)
-//                            {
-//                                tileLayer[(j-jStart)*width+q] = Integer.parseInt(numbers[q]);  
-//                                //System.out.print(q+","+(j-jStart)+"="+numbers[q]+ "\t"+(j-jStart)+"\t");
-//                            }                            
-//                        }                        
-//                    }
-//                    else if(newLayer)
-//                    {
-//                        jStart = 0;
-//                        tileLayers.add(tileLayer);
-//                        //System.out.println("Layer added");
-//                        tileLayer = new int[width*height];
-//                        newLayer = false;
-//                    }
-//                }  
-//                //System.out.println("");
-//                j++;
-//            }
-//        } 
-//        catch (IOException ex)
-//        {
-//            System.out.println("Error reading file "+ path);
-//        }
-//    }
-    
-    public void render(Graphics g, int xOfset, int yOfset, int frameWidth, int frameHeight)
+    public void render(Graphics g, int xOfset, int yOfset, int frameWidth, int frameHeight, int tileRenderSize)
     {
         int xStart = Math.max(0, xOfset / tileRenderSize);
         int yStart = Math.max(0, yOfset / tileRenderSize);;
@@ -134,19 +109,20 @@ public class World
         for(int l = 1; l < tileLayers.size(); l++)
         {
             int[] layer = tileLayers.get(l).getTileNumbers();
-//            }
+            
             for(int j = yStart; j < yEnd; j++)
             {
                 for(int i = xStart; i < xEnd; i++)
                 {
-                    palet[layer[j*width + i]].render(g, i*tileRenderSize - xOfset, j*tileRenderSize - yOfset, tileRenderSize);
+                    if(palet[layer[j*width + i]] != null)
+                        palet[layer[j*width + i]].render(g, i*tileRenderSize - xOfset, j*tileRenderSize - yOfset, tileRenderSize);                  
                 }
             }
         }
         
     }
     
-    public void renderCollisionData(Graphics g, int xOfset, int yOfset, int frameWidth, int frameHeight)
+    public void renderCollisionData(Graphics g, int xOfset, int yOfset, int frameWidth, int frameHeight, int tileRenderSize)
     {
         int xStart = Math.max(0, xOfset / tileRenderSize);
         int yStart = Math.max(0, yOfset / tileRenderSize);;
@@ -194,9 +170,5 @@ public class World
     public String getName()
     {
         return name;
-    }
-    
-    public int getTileRenderSize() {
-        return tileRenderSize;
     }
 }
