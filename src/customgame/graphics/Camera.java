@@ -5,7 +5,6 @@
 
 package customgame.graphics;
 
-import customgame.Gui;
 import customgame.entities.Entity;
 
 public class Camera 
