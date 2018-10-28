@@ -9,11 +9,16 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+/*
+    This class keeps track of where the mousepointer is and whether the buttons
+    are currently being pressed or not. Used in the Gui class.
+*/
+
 public class MouseManager implements MouseListener, MouseMotionListener
 {
-    
-    public int x, y;
-    public boolean leftClick;
+    private int x;
+    private int y;
+    private boolean leftClick, midClick, rightClick;
     
     @Override
     public void mouseClicked(MouseEvent me){}
@@ -22,16 +27,24 @@ public class MouseManager implements MouseListener, MouseMotionListener
     public void mousePressed(MouseEvent me) 
     {
         //System.out.println("pressed");
-        if(me.getButton() == 1)
+        if(me.getButton() == MouseEvent.BUTTON1)
             leftClick = true;
+        if(me.getButton() == MouseEvent.BUTTON2)
+            midClick = true;
+        if(me.getButton() == MouseEvent.BUTTON1)
+            rightClick = true;
     }
 
     @Override
     public void mouseReleased(MouseEvent me) 
     {
         //System.out.println("released");
-        if(me.getButton() == 1)
+        if(me.getButton() == MouseEvent.BUTTON1)
             leftClick = false;
+        if(me.getButton() == MouseEvent.BUTTON2)
+            midClick = false;
+        if(me.getButton() == MouseEvent.BUTTON1)
+            rightClick = false;
     }
 
     @Override
@@ -49,5 +62,25 @@ public class MouseManager implements MouseListener, MouseMotionListener
         //System.out.println("moved");
         x = me.getX();
         y = me.getY();
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public boolean isLeftClick() {
+        return leftClick;
+    }
+
+    public boolean isMidClick() {
+        return midClick;
+    }
+
+    public boolean isRightClick() {
+        return rightClick;
     }
 }

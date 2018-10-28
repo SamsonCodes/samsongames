@@ -13,9 +13,10 @@ import java.awt.Rectangle;
 
 public class Button extends UIElement
 {
-    String buttonText;
-    boolean pressed, hover, selected;
-    Font buttonFont = new Font("Arial", Font.BOLD, 18);
+    private String buttonText;
+    private boolean pressed, hover, selected;
+    private Font buttonFont;
+    private Color color, textColor, hoverColor, selectColor;
     
     public Button(Gui gui, int x, int y, int width, int height, String buttonText)
     {
@@ -28,6 +29,11 @@ public class Button extends UIElement
             this.buttonText = buttonText;
         else
             this.buttonText = "";
+        this.buttonFont = new Font("TimesRoman", Font.PLAIN, Math.max(height/2, 1));
+        this.color = Color.WHITE;
+        this.hoverColor = Color.YELLOW;
+        this.selectColor = Color.BLUE;
+        this.textColor = Color.BLACK;
         active = true;
     }
     
@@ -41,8 +47,8 @@ public class Button extends UIElement
     {
         if(!selected)
         {
-            int pointerX = gui.getMouseManager().x;
-            int pointerY = gui.getMouseManager().y;
+            int pointerX = gui.getMouseManager().getX();
+            int pointerY = gui.getMouseManager().getY();
             int range = 1;
             Rectangle pointer = new Rectangle(pointerX-range/2, pointerY-range/2, range, range);
             Rectangle buttonBounds = new Rectangle(x,y,width,height);
@@ -54,7 +60,7 @@ public class Button extends UIElement
             {
                 hover = false;
             }
-            if(gui.getMouseManager().leftClick && hover)
+            if(gui.getMouseManager().isLeftClick() && hover)
             {
                 pressed = true;
             }
@@ -76,14 +82,14 @@ public class Button extends UIElement
         if(active)
         {
             if(selected)
-                g.setColor(Color.BLUE);
+                g.setColor(selectColor);
             else if(hover)
-                g.setColor(Color.WHITE);
+                g.setColor(hoverColor);
             else
-                g.setColor(Color.LIGHT_GRAY);
+                g.setColor(color);
             g.fillRect(x, y, width, height);
             //g.drawImage(Assets.button, x, y, width, height, null);
-            g.setColor(Color.BLACK);
+            g.setColor(textColor);
             g.setFont(buttonFont);
             g.drawString(buttonText, x+10, y+height/2);
             g.drawRect(x, y, width, height);

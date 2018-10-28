@@ -9,6 +9,11 @@ package customgame.states;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/*
+    This state is just a placeholder to make the Game objects runnable without
+    creating your won states. Just for testing purposes.
+*/
+
 public class TestState implements IState
 {
     private long enterTime, currentTime;

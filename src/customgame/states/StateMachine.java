@@ -12,6 +12,11 @@ import java.awt.Graphics;
 import java.util.HashMap;
 import java.util.Stack;
 
+/*
+    All you need for switching between your game states. Allows for pushing and 
+    popping as well as switching between states directly.
+*/
+
 public class StateMachine 
 {
     private HashMap<String, IState> stateMap;

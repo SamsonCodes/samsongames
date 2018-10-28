@@ -1,12 +1,9 @@
 package customgame.states;
 
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+    The template for making your own states. Every game state neeeds these methods
+    in order to work for the Game class in this library.
  */
-
-
 
 import java.awt.Graphics;
 

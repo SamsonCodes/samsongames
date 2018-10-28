@@ -38,7 +38,7 @@ public class InputBox extends UIElement
         {
             if(System.currentTimeMillis() - lastInput > inputCooldown)
             {
-                if(gui.getMouseManager().leftClick)
+                if(gui.getMouseManager().isLeftClick())
                 {
                     lastInput = System.currentTimeMillis();
                     if(!selected)
@@ -48,57 +48,57 @@ public class InputBox extends UIElement
                 }
                 if(selected)
                 {
-                    if(gui.getKeyManager().keys[KeyEvent.VK_1])
+                    if(gui.getKeyManager().getKeys()[KeyEvent.VK_1])
                     {
                         lastInput = System.currentTimeMillis();
                         input+="1";
                     }
-                    if(gui.getKeyManager().keys[KeyEvent.VK_2])
+                    if(gui.getKeyManager().getKeys()[KeyEvent.VK_2])
                     {
                         lastInput = System.currentTimeMillis();
                         input+="2";
                     }
-                    if(gui.getKeyManager().keys[KeyEvent.VK_3])
+                    if(gui.getKeyManager().getKeys()[KeyEvent.VK_3])
                     {
                         lastInput = System.currentTimeMillis();
                         input+="3";
                     }
-                    if(gui.getKeyManager().keys[KeyEvent.VK_4])
+                    if(gui.getKeyManager().getKeys()[KeyEvent.VK_4])
                     {
                         lastInput = System.currentTimeMillis();
                         input+="4";
                     }
-                    if(gui.getKeyManager().keys[KeyEvent.VK_5])
+                    if(gui.getKeyManager().getKeys()[KeyEvent.VK_5])
                     {
                         lastInput = System.currentTimeMillis();
                         input+="5";
                     }
-                    if(gui.getKeyManager().keys[KeyEvent.VK_6])
+                    if(gui.getKeyManager().getKeys()[KeyEvent.VK_6])
                     {
                         lastInput = System.currentTimeMillis();
                         input+="6";
                     }
-                    if(gui.getKeyManager().keys[KeyEvent.VK_7])
+                    if(gui.getKeyManager().getKeys()[KeyEvent.VK_7])
                     {
                         lastInput = System.currentTimeMillis();
                         input+="7";
                     }
-                    if(gui.getKeyManager().keys[KeyEvent.VK_8])
+                    if(gui.getKeyManager().getKeys()[KeyEvent.VK_8])
                     {
                         lastInput = System.currentTimeMillis();
                         input+="8";
                     }
-                    if(gui.getKeyManager().keys[KeyEvent.VK_9])
+                    if(gui.getKeyManager().getKeys()[KeyEvent.VK_9])
                     {
                         lastInput = System.currentTimeMillis();
                         input+="9";
                     }
-                    if(gui.getKeyManager().keys[KeyEvent.VK_0])
+                    if(gui.getKeyManager().getKeys()[KeyEvent.VK_0])
                     {
                         lastInput = System.currentTimeMillis();
                         input+="0";
                     }
-                    if(gui.getKeyManager().keys[KeyEvent.VK_ENTER])
+                    if(gui.getKeyManager().getKeys()[KeyEvent.VK_ENTER])
                     {
                         lastInput = System.currentTimeMillis();
                         if(selected && !input.equals(""))
@@ -106,7 +106,7 @@ public class InputBox extends UIElement
                             sent = true;
                         }
                     }
-                    if(gui.getKeyManager().keys[KeyEvent.VK_BACK_SPACE])
+                    if(gui.getKeyManager().getKeys()[KeyEvent.VK_BACK_SPACE])
                     {
                         lastInput = System.currentTimeMillis();
                         if(!input.isEmpty())

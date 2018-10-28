@@ -10,45 +10,46 @@ import customgame.entities.Entity;
 
 public class Camera 
 {
-    private Gui gui;
     private int xOfset, yOfset;
-    private int worldWidth, worldHeight;
+    private int worldWidth, worldHeight, frameWidth, frameHeight;
     private boolean checkBlankSpace;
     
-    public Camera(Gui gui)
+    public Camera(int worldWidth, int worldHeight, int frameWidth, int frameHeight)
     {
-        this.gui = gui;
         this.xOfset = 0;
         this.yOfset = 0;
-        worldWidth = gui.getWidth();
-        worldHeight = gui.getHeight();
+        this.worldWidth = worldWidth;
+        this.worldHeight = worldHeight;
+        this.frameWidth = frameWidth;
+        this.frameHeight = frameHeight;
         checkBlankSpace = false;
     }
     
+    //This keeps the camera from moving out of the world, can be toggled with checkBlankSpace boolean
     private void checkBlankSpace()
     {
         if(xOfset < 0)
         {
             xOfset = 0;
         }
-        else if(xOfset > getWorldWidth() - gui.getWidth())
+        else if(xOfset > worldWidth - frameWidth)
         {
-            xOfset = getWorldWidth() - gui.getWidth();
+            xOfset = worldWidth - frameWidth;
         }
         if(yOfset < 0)
         {
             yOfset = 0;
         }
-        else if(yOfset > getWorldHeight() - gui.getHeight())
+        else if(yOfset > worldHeight - frameHeight)
         {
-            yOfset = getWorldHeight() - gui.getHeight();
+            yOfset = worldHeight - frameHeight;
         }
     }
     
-    public void centerOnEntity(Entity e)
+    public void centerOnEntity(Entity e, int frameWidth, int frameHeight)
     {
-        xOfset = e.getX() + e.getWidth()/2 - gui.getWidth()/2;
-        yOfset = e.getY() + e.getHeight()/2 - gui.getHeight()/2;
+        xOfset = e.getX() + e.getWidth()/2 - frameWidth/2;
+        yOfset = e.getY() + e.getHeight()/2 - frameHeight/2;
         if(isCheckBlankSpace())
             checkBlankSpace();
     }
