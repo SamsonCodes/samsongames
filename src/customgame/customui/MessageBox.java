@@ -18,21 +18,17 @@ public class MessageBox extends UIElement
     
     public MessageBox(Gui gui, Color color)
     {
-        super(gui);        
+        super(gui, 0, 3*gui.getHeight()/4);        
         this.color = color;
         width = gui.getWidth();
         height = gui.getHeight()/4;
-        x = 0;
-        y = 3*gui.getHeight()/4;
         text = "Messages will appear here";
         active = false;
     }
     
     public MessageBox(Gui gui, int x, int y, int width, int height, Color color)
     {
-        super(gui);
-        this.x = x;
-        this.y = y;
+        super(gui, x, y);
         this.width = width;
         this.height = height;
         this.color = color;

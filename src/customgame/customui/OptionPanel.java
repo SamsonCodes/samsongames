@@ -10,19 +10,19 @@ import java.awt.Graphics;
 
 public class OptionPanel extends UIElement
 {
-    private Button[] buttons;
+    private CustomButton[] buttons;
     private int options;
     private int[] choice;
     private int currentIndex;
     
     public OptionPanel(Gui gui, String[] options, int x, int y, int bWidth, int bHeight, int panelWidth, int choiceAmount)
     {
-        super(gui);
+        super(gui, x, y);
         this.options = options.length;
-        buttons = new Button[options.length];
+        buttons = new CustomButton[options.length];
         for(int i = 0; i < options.length; i++)
         {
-            buttons[i] = new Button(gui, x+(i%panelWidth)*bWidth, y+(i/panelWidth)*bHeight, bWidth, bHeight, options[i]);
+            buttons[i] = new CustomButton(gui, x+(i%panelWidth)*bWidth, y+(i/panelWidth)*bHeight, bWidth, bHeight, options[i]);
         }
         choice = new int[choiceAmount];
         for(int i = 0; i < choice.length; i++)
@@ -45,7 +45,7 @@ public class OptionPanel extends UIElement
     @Override
     public void update() 
     {
-        for(Button b: buttons)
+        for(CustomButton b: buttons)
             b.update();
         for(int i = 0; i < buttons.length; i++)
         {

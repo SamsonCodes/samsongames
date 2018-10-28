@@ -14,9 +14,11 @@ public abstract class UIElement
     boolean active;
     protected Gui gui;
     
-    public UIElement(Gui gui)
+    public UIElement(Gui gui, int x, int y)
     {
         this.gui = gui;
+        this.x = x;
+        this.y = y;
     }
     
     public abstract void update();

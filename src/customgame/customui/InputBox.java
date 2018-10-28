@@ -19,9 +19,7 @@ public class InputBox extends UIElement
     
     public InputBox(Gui gui, int x, int y, int width, int height) 
     {
-        super(gui);
-        this.x = x;
-        this.y = y;
+        super(gui, x, y);
         this.width = width;
         this.height = height;
         input = "";

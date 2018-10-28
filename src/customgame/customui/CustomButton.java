@@ -11,30 +11,36 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class Button extends UIElement
+public class CustomButton extends UIElement
 {
     private String buttonText;
     private boolean pressed, hover, selected;
     private Font buttonFont;
     private Color color, textColor, hoverColor, selectColor;
     
-    public Button(Gui gui, int x, int y, int width, int height, String buttonText)
+    public CustomButton(Gui gui, int x, int y, int width, int height, String buttonText)
     {
-        super(gui);        
-        this.x = x;
-        this.y = y;
+        super(gui, x, y);
         this.width = width;
         this.height = height;
         if(buttonText != null)
             this.buttonText = buttonText;
         else
             this.buttonText = "";
-        this.buttonFont = new Font("TimesRoman", Font.PLAIN, Math.max(height/2, 1));
+        this.buttonFont = new Font("TimesRoman", Font.PLAIN, Math.max(height/4, 1));
         this.color = Color.WHITE;
         this.hoverColor = Color.YELLOW;
         this.selectColor = Color.BLUE;
         this.textColor = Color.BLACK;
         active = true;
+    }
+    
+    public void reset()
+    {
+        active = true;
+        pressed = false;
+        hover = false;
+        selected = false;
     }
     
     public boolean getPressed()
