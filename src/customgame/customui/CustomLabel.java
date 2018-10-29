@@ -9,13 +9,16 @@ package customgame.customui;
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class Label extends UIElement
+public class CustomLabel extends UIElement
 {
     private String text;
     
-    public Label(int x, int y, int width, int height, String text) 
+    public CustomLabel(int x, int y, int width, int height, String text) 
     {
         super(x, y);
+        this.width = width;
+        this.height = height;
+        this.text = text;
     }
 
     @Override
@@ -30,7 +33,7 @@ public class Label extends UIElement
         g.setColor(Color.WHITE);
         g.fillRect(x, y, width, height);
         g.setColor(Color.BLACK);
-        g.drawString(text, x, y);
+        g.drawString(text, x + 10, y + height/2);
     }
 
 }

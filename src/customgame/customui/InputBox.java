@@ -9,7 +9,13 @@ package customgame.customui;
 import customgame.Gui;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
+
+/*
+    To do: add text input alternative that can take in all keys and convert it to a String
+*/
+
 
 public class InputBox extends UIElement
 {
@@ -41,10 +47,16 @@ public class InputBox extends UIElement
                 if(gui.getMouseManager().isLeftClick())
                 {
                     lastInput = System.currentTimeMillis();
-                    if(!selected)
-                        selected = true;
-                    else
-                        selected = false;
+                    int pointerX = gui.getMouseManager().getX();
+                    int pointerY = gui.getMouseManager().getY();
+                    int range = 1;
+                    Rectangle pointer = new Rectangle(pointerX-range/2, pointerY-range/2, range, range);
+                    Rectangle buttonBounds = new Rectangle(x,y,width,height);
+                    if(pointer.intersects(buttonBounds))
+                        if(!selected)
+                            selected = true;
+                        else
+                            selected = false;
                 }
                 if(selected)
                 {
@@ -139,9 +151,9 @@ public class InputBox extends UIElement
     public void render(Graphics g) 
     {
         if(!selected || sent)
-            g.setColor(Color.GRAY);
-        else
             g.setColor(Color.WHITE);
+        else
+            g.setColor(Color.LIGHT_GRAY);
         g.fillRect(x, y, width, height);
         g.setColor(Color.BLACK);
         g.drawString(input, x, y + height/2 + g.getFont().getSize());

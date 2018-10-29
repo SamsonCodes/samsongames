@@ -8,12 +8,13 @@ package samsongamestest.states;
 
 import customgame.Gui;
 import customgame.customui.CustomButton;
+import customgame.customui.CustomLabel;
+import customgame.customui.InputBox;
 import customgame.customui.MessageBox;
 import customgame.customui.OptionPanel;
 import customgame.states.IState;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Label;
 
 public class UIState implements IState 
 {
@@ -22,8 +23,9 @@ public class UIState implements IState
     private CustomButton button;
     private MessageBox msgBox;
     private OptionPanel optionPanel, optionPanel2,optionPanel3;
-    private Label label;
+    private CustomLabel label;
     private long lastInput;
+    private InputBox inputBox;
     
     public UIState(Gui gui)
     {
@@ -43,7 +45,10 @@ public class UIState implements IState
         msgBox = new MessageBox(0, 700, 1200, 200, Color.WHITE);
         optionPanel = new OptionPanel(gui, new String[]{"Option 1", "Option 2", "Option 3"}, bX, bY + bHeight*2, bWidth, bHeight, 1, 1);
         optionPanel2 = new OptionPanel(gui, new String[]{"Option 1", "Option 2", "Option 3"}, bX + bWidth + 1, bY + bHeight*2, bWidth, bHeight, 1, 2);
-        optionPanel3 = new OptionPanel(gui, new String[]{"Option 1", "Option 2", "Option 3","Option 4", "Option 5", "Option 6"}, bX + bWidth*3 + 1, bY + bHeight*2, bWidth, bHeight, 2, 3);
+        optionPanel3 = new OptionPanel(gui, new String[]{"Option 1", "Option 2", "Option 3",
+            "Option 4", "Option 5", "Option 6"}, bX + bWidth*3 + 1, bY + bHeight*2, bWidth, bHeight, 2, 3);
+        label = new CustomLabel(bWidth*2 + bX, bY, bWidth, bHeight, "Label");
+        inputBox = new InputBox(gui, bX + bWidth*3 + 1, bY, bWidth, bHeight);
     }
 
     @Override
@@ -195,6 +200,14 @@ public class UIState implements IState
                 optionPanel3.reset();
                 lastInput = System.currentTimeMillis();
             }
+            //InputBox
+            inputBox.update();
+            if(inputBox.isSent())
+            {
+                msgBox.setText("Input = " + inputBox.getInput(), 2000);
+                inputBox.reset();
+                lastInput = System.currentTimeMillis();
+            }
         }
         
     }
@@ -206,7 +219,9 @@ public class UIState implements IState
         optionPanel.render(g);
         optionPanel2.render(g);
         optionPanel3.render(g);
+        inputBox.render(g);
         msgBox.render(g);
+        label.render(g);
     }
 
 }

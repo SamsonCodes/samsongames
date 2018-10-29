@@ -9,6 +9,11 @@ import java.awt.Graphics;
 
 public abstract class UIElement 
 {
+/*
+    TO DO: add width and height to constructor and make getters for dimensions, 
+    then add Frame UIElement Class for better UI alignment options
+    Also: Think about better modularization of UI elements
+*/
     int x, y, width, height;
     boolean active;
     
