@@ -5,7 +5,7 @@
 
 package customgame.graphics;
 
-import customgame.entities.Entity;
+import customgame.tiled.entities.TileMapEntity;
 
 public class Camera 
 {
@@ -45,7 +45,7 @@ public class Camera
         }
     }
     
-    public void centerOnEntity(Entity e, int frameWidth, int frameHeight)
+    public void centerOnEntity(TileMapEntity e, int frameWidth, int frameHeight)
     {
         xOfset = e.getX() + e.getWidth()/2 - frameWidth/2;
         yOfset = e.getY() + e.getHeight()/2 - frameHeight/2;
@@ -58,8 +58,7 @@ public class Camera
         xOfset += xAmount;
         yOfset += yAmount;
         if(isCheckBlankSpace())
-            checkBlankSpace();
-        
+            checkBlankSpace();        
     }
 
     public int getxOfset() {

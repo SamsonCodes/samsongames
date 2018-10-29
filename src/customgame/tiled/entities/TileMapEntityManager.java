@@ -3,15 +3,15 @@
  * and open the template in the editor.
  */
 
-package customgame.entities;
+package customgame.tiled.entities;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class EntityManager 
+public class TileMapEntityManager 
 {
-    private ArrayList<Entity> entities, garbageCan;
+    private ArrayList<TileMapEntity> entities, garbageCan;
 //    private Comparator<Entity> renderSorter = new Comparator<Entity>() {
 //
 //        @Override
@@ -23,7 +23,7 @@ public class EntityManager
 //        }
 //    };
     
-    public EntityManager()
+    public TileMapEntityManager()
     {
         entities = new ArrayList<>();
         garbageCan = new ArrayList<>();
@@ -31,10 +31,10 @@ public class EntityManager
     
     public void update()
     {
-        Iterator<Entity> itr = entities.iterator();
+        Iterator<TileMapEntity> itr = entities.iterator();
         while(itr.hasNext())
         {
-            Entity e = itr.next();
+            TileMapEntity e = itr.next();
             if(!e.isActive())
             {
                 if(!garbageCan.contains(e))
@@ -50,23 +50,23 @@ public class EntityManager
     
     public void render(Graphics g, int xOfset, int yOfset)
     {
-        for(Entity e: entities)
+        for(TileMapEntity e: entities)
         {
             e.render(g, xOfset, yOfset);
         }
     }
     
-    public ArrayList<Entity> getEntities()
+    public ArrayList<TileMapEntity> getEntities()
     {
         return entities;
     }
     
-    public ArrayList<Entity> getGarbageCan()
+    public ArrayList<TileMapEntity> getGarbageCan()
     {
         return garbageCan;
     }
     
-    public void addEntity(Entity e)
+    public void addEntity(TileMapEntity e)
     {
         entities.add(e);
     }

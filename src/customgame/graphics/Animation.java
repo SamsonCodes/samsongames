@@ -40,6 +40,11 @@ public class Animation
         return frames[current];
     }
     
+    public BufferedImage getFrame(int i)
+    {
+        return frames[i];
+    }
+    
     public void reset()
     {
         lastTime = System.currentTimeMillis();
