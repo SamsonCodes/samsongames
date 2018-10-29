@@ -26,10 +26,8 @@ public class InputBox extends UIElement
     
     public InputBox(Gui gui, int x, int y, int width, int height) 
     {
-        super(x, y);
+        super(x, y, width, height);
         this.gui = gui;
-        this.width = width;
-        this.height = height;
         input = "";
         inputCooldown = 100;
         lastInput = System.currentTimeMillis();

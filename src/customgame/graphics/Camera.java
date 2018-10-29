@@ -59,6 +59,7 @@ public class Camera
         yOfset += yAmount;
         if(isCheckBlankSpace())
             checkBlankSpace();
+        
     }
 
     public int getxOfset() {

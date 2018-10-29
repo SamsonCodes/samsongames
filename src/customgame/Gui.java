@@ -15,7 +15,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+/**
+ * This GUI has a Canvas for rendering and a KeyManager and MouseManager for 
+ * detecting user input.
+ * @author Samson
+ */
 public class Gui implements Runnable
 {
     private JFrame frame;

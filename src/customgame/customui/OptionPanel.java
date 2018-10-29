@@ -18,7 +18,7 @@ public class OptionPanel extends UIElement
     
     public OptionPanel(Gui gui, String[] options, int x, int y, int bWidth, int bHeight, int panelWidth, int choiceAmount)
     {
-        super(x, y);
+        super(x, y, bWidth * panelWidth, bHeight * (options.length / panelWidth));
         this.gui = gui;
         this.options = options.length;
         buttons = new CustomButton[options.length];

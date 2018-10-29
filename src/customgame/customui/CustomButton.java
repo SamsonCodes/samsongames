@@ -21,10 +21,8 @@ public class CustomButton extends UIElement
     
     public CustomButton(Gui gui, int x, int y, int width, int height, String buttonText)
     {
-        super(x, y);
+        super(x, y, width, height);
         this.gui = gui;
-        this.width = width;
-        this.height = height;
         if(buttonText != null)
             this.buttonText = buttonText;
         else

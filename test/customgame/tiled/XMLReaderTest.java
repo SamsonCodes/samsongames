@@ -116,7 +116,6 @@ public class XMLReaderTest {
         assertEquals(output3, 3);
         int output4 = XMLReader.countChar('k', s2);
         assertEquals(output4, 4);
-        
     }
     
 }

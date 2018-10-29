@@ -15,9 +15,7 @@ public class CustomLabel extends UIElement
     
     public CustomLabel(int x, int y, int width, int height, String text) 
     {
-        super(x, y);
-        this.width = width;
-        this.height = height;
+        super(x, y, width, height);
         this.text = text;
     }
 

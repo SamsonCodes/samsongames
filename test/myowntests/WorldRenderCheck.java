@@ -7,6 +7,7 @@
 package myowntests;
 
 import customgame.Game;
+import customgame.graphics.Camera;
 import samsongamestest.states.WorldState;
 
 
@@ -23,6 +24,7 @@ public class WorldRenderCheck
         game.getStateMachine().change("world");
         game.run();
         System.out.println("");
+        Camera c = new Camera(TILE_SIZE, FRAME_WIDTH, FRAME_WIDTH, FRAME_HEIGHT);
     }
 
     public static void main(String[] args) 

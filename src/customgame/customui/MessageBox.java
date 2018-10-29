@@ -17,9 +17,7 @@ public class MessageBox extends UIElement
     
     public MessageBox(int x, int y, int width, int height, Color color)
     {
-        super(x, y);
-        this.width = width;
-        this.height = height;
+        super(x, y, width, height);
         this.color = color;
         active = false;
     }

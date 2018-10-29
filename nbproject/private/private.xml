@@ -3,13 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/src/customgame/tiled/XMLReader.java</file>
-            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/test/myowntests/WorldRenderCheck.java</file>
-            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/src/customgame/graphics/Camera.java</file>
-            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/test/samsongamestest/states/WorldState.java</file>
-            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/test/customgame/tiled/XMLReaderTest.java</file>
+            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/src/customgame/customui/UIElement.java</file>
+            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/test/samsongamestest/states/UIState.java</file>
+            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/src/customgame/customui/OptionPanel.java</file>
+            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/src/customgame/customui/MessageBox.java</file>
             <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/src/customgame/customui/CustomButton.java</file>
-            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/src/customgame/tiled/World.java</file>
+            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/src/customgame/customui/CustomLabel.java</file>
+            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/test/myowntests/UICheck.java</file>
+            <file>file:/C:/Users/Samson/Documents/NetBeansProjects/SamsonGames/src/customgame/customui/InputBox.java</file>
         </group>
     </open-files>
 </project-private>

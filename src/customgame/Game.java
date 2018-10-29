@@ -10,7 +10,11 @@ import customgame.states.StateMachine;
 import customgame.states.TestState;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-
+/**
+ * The Game object creates a window with the Gui class and a game loop for updating and 
+ * rendering.It also has a StateMachine to switch between states.
+ * @author Samson
+ */
 public class Game implements Runnable
 {
     private Gui gui;

@@ -9,16 +9,20 @@ package samsongamestest.states;
 import customgame.Gui;
 import customgame.graphics.Camera;
 import customgame.states.IState;
-import customgame.tiled.World;
+import customgame.tiled.TileMap;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import myowntests.WorldRenderCheck;
 
+/**
+ * This is a worldstate that actually has a javadoc! Good stuff.
+ * @author Samson
+ */
 public class WorldState implements IState
 {
     private final static long CAMERA_COOLDOWN = 15;
     private final static int CAMERA_STEP = 5;
-    private World world;
+    private TileMap world;
     private Gui gui;
     private Camera camera;
     private long lastInput;
@@ -26,7 +30,7 @@ public class WorldState implements IState
     public WorldState(Gui gui)
     {
         this.gui = gui;
-        world = new World("orilcity", WorldRenderCheck.PACKAGE_PATH + "tmx\\pokecenter.tmx", WorldRenderCheck.PACKAGE_PATH + "images\\");
+        world = new TileMap("orilcity", WorldRenderCheck.PACKAGE_PATH + "tmx\\pokecenter.tmx", WorldRenderCheck.PACKAGE_PATH + "images\\");
         camera = new Camera(world.getWidth()*WorldRenderCheck.TILE_SIZE, world.getHeight()*WorldRenderCheck.TILE_SIZE, WorldRenderCheck.FRAME_WIDTH, WorldRenderCheck.FRAME_HEIGHT);
         camera.setCheckBlankSpace(false);
     }
@@ -78,4 +82,11 @@ public class WorldState implements IState
     {
         world.render(g, camera.getxOfset(), camera.getyOfset(), WorldRenderCheck.FRAME_WIDTH, WorldRenderCheck.FRAME_HEIGHT, WorldRenderCheck.TILE_SIZE);
     }
+
+    @Override
+    public final String toString() {
+        return "WorldState{" + "world=" + world + ", gui=" + gui + ", camera=" + camera + ", lastInput=" + lastInput + '}';
+    }
+    
+    
 }
