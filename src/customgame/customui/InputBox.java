@@ -16,10 +16,12 @@ public class InputBox extends UIElement
     private long lastInput, inputCooldown;
     private String input;
     private boolean selected, sent;
+    private Gui gui;
     
     public InputBox(Gui gui, int x, int y, int width, int height) 
     {
-        super(gui, x, y);
+        super(x, y);
+        this.gui = gui;
         this.width = width;
         this.height = height;
         input = "";

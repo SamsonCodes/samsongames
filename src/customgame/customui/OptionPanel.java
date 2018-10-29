@@ -14,10 +14,12 @@ public class OptionPanel extends UIElement
     private int options;
     private int[] choice;
     private int currentIndex;
+    private Gui gui;
     
     public OptionPanel(Gui gui, String[] options, int x, int y, int bWidth, int bHeight, int panelWidth, int choiceAmount)
     {
-        super(gui, x, y);
+        super(x, y);
+        this.gui = gui;
         this.options = options.length;
         buttons = new CustomButton[options.length];
         for(int i = 0; i < options.length; i++)
@@ -29,6 +31,19 @@ public class OptionPanel extends UIElement
         {
             choice[i] = -1;
         }
+        currentIndex = 0;
+    }
+    
+    public void reset()
+    {
+        for(CustomButton b: buttons)
+        {
+            b.reset();
+        }
+        for(int i = 0; i < choice.length; i++)
+        {
+            choice[i] = -1;
+        }        
         currentIndex = 0;
     }
     
@@ -68,10 +83,20 @@ public class OptionPanel extends UIElement
     @Override
     public void render(Graphics g) 
     {
-        for(int i = 0; i < buttons.length; i++)
-        {
-            buttons[i].render(g);
+        for (CustomButton button : buttons) {
+            button.render(g);
         }
+    }
+    
+    public boolean allSelected()
+    {
+        boolean allSelected = true;
+        for(int c: choice)
+        {
+            if(c == -1)
+                allSelected = false;
+        }
+        return allSelected;
     }
     
 }

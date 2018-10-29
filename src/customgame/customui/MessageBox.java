@@ -5,7 +5,6 @@
 
 package customgame.customui;
 
-import customgame.Gui;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -16,19 +15,9 @@ public class MessageBox extends UIElement
     long displayTime, startTime;
     private Color color;
     
-    public MessageBox(Gui gui, Color color)
+    public MessageBox(int x, int y, int width, int height, Color color)
     {
-        super(gui, 0, 3*gui.getHeight()/4);        
-        this.color = color;
-        width = gui.getWidth();
-        height = gui.getHeight()/4;
-        text = "Messages will appear here";
-        active = false;
-    }
-    
-    public MessageBox(Gui gui, int x, int y, int width, int height, Color color)
-    {
-        super(gui, x, y);
+        super(x, y);
         this.width = width;
         this.height = height;
         this.color = color;

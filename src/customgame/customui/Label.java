@@ -6,7 +6,6 @@
 
 package customgame.customui;
 
-import customgame.Gui;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -14,9 +13,9 @@ public class Label extends UIElement
 {
     private String text;
     
-    public Label(Gui gui, int x, int y, int width, int height, String text) 
+    public Label(int x, int y, int width, int height, String text) 
     {
-        super(gui, x, y);
+        super(x, y);
     }
 
     @Override

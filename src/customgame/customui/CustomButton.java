@@ -17,10 +17,12 @@ public class CustomButton extends UIElement
     private boolean pressed, hover, selected;
     private Font buttonFont;
     private Color color, textColor, hoverColor, selectColor;
+    private Gui gui;
     
     public CustomButton(Gui gui, int x, int y, int width, int height, String buttonText)
     {
-        super(gui, x, y);
+        super(x, y);
+        this.gui = gui;
         this.width = width;
         this.height = height;
         if(buttonText != null)

@@ -12,7 +12,7 @@ import samsongamestest.states.WorldState;
 
 public class WorldRenderCheck 
 {
-   public final static String PACKAGE_PATH = "C:\\Users\\Samson\\Documents\\NetBeansProjects\\SamsonGames\\test\\samsongamestest\\";
+    public final static String PACKAGE_PATH = "C:\\Users\\Samson\\Documents\\NetBeansProjects\\SamsonGames\\test\\samsongamestest\\";
     public static final int FRAME_WIDTH = 1200, FRAME_HEIGHT = 900, TILE_SIZE = 50;
     
     private void worldRenderTest()

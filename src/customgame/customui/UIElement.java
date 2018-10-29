@@ -5,18 +5,15 @@
 
 package customgame.customui;
 
-import customgame.Gui;
 import java.awt.Graphics;
 
 public abstract class UIElement 
 {
     int x, y, width, height;
     boolean active;
-    protected Gui gui;
     
-    public UIElement(Gui gui, int x, int y)
+    public UIElement(int x, int y)
     {
-        this.gui = gui;
         this.x = x;
         this.y = y;
     }
