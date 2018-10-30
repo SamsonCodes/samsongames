@@ -9,6 +9,7 @@ package samsongamestest.states;
 import customgame.Gui;
 import customgame.customui.CustomButton;
 import customgame.customui.CustomLabel;
+import customgame.customui.Frame;
 import customgame.customui.InputBox;
 import customgame.customui.MessageBox;
 import customgame.customui.OptionPanel;
@@ -26,6 +27,7 @@ public class UIState implements IState
     private CustomLabel label;
     private long lastInput;
     private InputBox inputBox;
+    private Frame frame;
     
     public UIState(Gui gui)
     {
@@ -49,6 +51,15 @@ public class UIState implements IState
             "Option 4", "Option 5", "Option 6"}, bX + bWidth*3 + 1, bY + bHeight*2, bWidth, bHeight, 2, 3);
         label = new CustomLabel(bWidth*2 + bX, bY, bWidth, bHeight, "Label");
         inputBox = new InputBox(gui, bX + bWidth*3 + 1, bY, bWidth, bHeight);
+        
+        frame = new Frame(0, 0, 205, 100);
+        frame.add(button);
+        frame.add(label);
+        frame.add(inputBox);
+        frame.add(optionPanel);
+        frame.add(optionPanel2);
+        frame.add(optionPanel3);
+        frame.add(msgBox);
     }
 
     @Override
@@ -215,13 +226,14 @@ public class UIState implements IState
     @Override
     public void render(Graphics g) 
     {
-        button.render(g);
-        optionPanel.render(g);
-        optionPanel2.render(g);
-        optionPanel3.render(g);
-        inputBox.render(g);
-        msgBox.render(g);
-        label.render(g);
+        frame.render(g);
+//        button.render(g);
+//        optionPanel.render(g);
+//        optionPanel2.render(g);
+//        optionPanel3.render(g);
+//        inputBox.render(g);
+//        msgBox.render(g);
+//        label.render(g);
     }
 
 }
