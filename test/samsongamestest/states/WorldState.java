@@ -8,6 +8,7 @@ package samsongamestest.states;
 
 import customgame.Gui;
 import customgame.graphics.Camera;
+import customgame.sound.MP3Player;
 import customgame.states.IState;
 import customgame.tiled.TileMap;
 import java.awt.Graphics;
@@ -15,7 +16,7 @@ import java.awt.event.KeyEvent;
 import myowntests.WorldRenderCheck;
 
 /**
- * This is a worldstate that actually has a javadoc! Good stuff.
+ * This is a world state that actually has a JavaDoc! Good stuff.
  * @author Samson
  */
 public class WorldState implements IState
@@ -26,6 +27,7 @@ public class WorldState implements IState
     private Gui gui;
     private Camera camera;
     private long lastInput;
+    private MP3Player song;
     
     public WorldState(Gui gui)
     {
@@ -33,6 +35,8 @@ public class WorldState implements IState
         world = new TileMap("orilcity", WorldRenderCheck.PACKAGE_PATH + "tmx\\pokecenter.tmx", WorldRenderCheck.PACKAGE_PATH + "images\\");
         camera = new Camera(world.getWidth()*WorldRenderCheck.TILE_SIZE, world.getHeight()*WorldRenderCheck.TILE_SIZE, WorldRenderCheck.FRAME_WIDTH, WorldRenderCheck.FRAME_HEIGHT);
         camera.setCheckBlankSpace(false);
+        song = new MP3Player(WorldRenderCheck.PACKAGE_PATH + "songs\\opening.mp3");
+        song.start();
     }
     
     @Override
@@ -71,6 +75,16 @@ public class WorldState implements IState
             if(gui.getKeyManager().getKeys()[KeyEvent.VK_DOWN])
             {
                 camera.move(0, CAMERA_STEP);
+                lastInput = System.currentTimeMillis();
+            }
+            if(gui.getKeyManager().getKeys()[KeyEvent.VK_1])
+            {
+                //song.start();
+                lastInput = System.currentTimeMillis();
+            }
+            if(gui.getKeyManager().getKeys()[KeyEvent.VK_2])
+            {
+                song.stopPlayer();
                 lastInput = System.currentTimeMillis();
             }
         }

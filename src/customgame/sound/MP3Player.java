@@ -9,6 +9,8 @@ import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
@@ -17,9 +19,11 @@ public class MP3Player extends Thread
     Player player;
     BufferedInputStream bis;
     private String fileName;
-    
-    public void play()
+    private boolean startedPlayer;
+
+    public MP3Player(String fileName)
     {
+        this.fileName = fileName;
         try
         {
             File file = new File(fileName);
@@ -28,7 +32,6 @@ public class MP3Player extends Thread
             try
             {
                 player = new Player(bis);
-                player.play();                
             }
             catch(JavaLayerException jle)
             {
@@ -41,8 +44,10 @@ public class MP3Player extends Thread
             System.out.println("MP3Player: ioexception");
             System.err.println(e.getMessage());
         }
+        startedPlayer = false;
     }
-    public void stopMusic(){
+    
+    public void stopPlayer(){
         if(player!=null)
         {
             player.close();
@@ -52,7 +57,14 @@ public class MP3Player extends Thread
     @Override
     public void run()
     {
-        play();
+        try 
+        {
+            player.play();
+        }
+        catch (JavaLayerException ex)
+        {
+            Logger.getLogger(MP3Player.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     public void setFileName(String fileName)
