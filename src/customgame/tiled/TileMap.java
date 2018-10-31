@@ -3,7 +3,6 @@
  */
 package customgame.tiled;
 
-import customgame.data.DataHandler;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -16,10 +15,10 @@ public class TileMap
     private int width, height;
     private String name;
 
-    public TileMap(String name, String tmxPath, String tileSetPath)
+    public TileMap(String name, String mapData, String tileSetPath)
     {
         this.name = name;
-        loadMap(DataHandler.loadData(tmxPath), tileSetPath);
+        loadMap(mapData, tileSetPath);
     }
 
     private void loadMap(String file, String tileSetPath)
