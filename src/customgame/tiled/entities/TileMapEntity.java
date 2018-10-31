@@ -63,6 +63,8 @@ public abstract class TileMapEntity
                 bounds.width, bounds.height);
         return r;
     }
+    
+    public abstract String getSaveData();
 
     public String getName()
     {

@@ -75,4 +75,15 @@ public class TileMapEntityManager
     {
         entities.clear();
     }
+    
+    public String getSaveData()
+    {
+        String saveData = "<entities>";
+        for(TileMapEntity e: entities)
+        {
+            saveData += e.getSaveData();
+        }
+        saveData += "</entities>";
+        return saveData;
+    }
 }

@@ -20,6 +20,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
+/**
+ * This class allows for saving text, loading text, deleting files and loading images.
+ * @author Samson
+ */
 public class DataHandler
 {
 
