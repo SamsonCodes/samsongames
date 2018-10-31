@@ -73,9 +73,9 @@ public abstract class Actor extends Entity
             {
                 y = 0;
             }
-            if (y > worldWidth)
+            if (y > worldHeight)
             {
-                y = worldWidth;
+                y = worldHeight;
             }
         }
         else
