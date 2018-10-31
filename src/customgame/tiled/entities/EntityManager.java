@@ -66,7 +66,7 @@ public class EntityManager
         return garbageCan;
     }
     
-    public void addEntity(Entity e)
+    public void add(Entity e)
     {
         entities.add(e);
     }
