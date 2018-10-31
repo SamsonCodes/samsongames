@@ -6,10 +6,8 @@
 
 package customgame.tiled;
 
+import customgame.data.DataHandler;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 
 public class TileSet 
 {
@@ -20,7 +18,7 @@ public class TileSet
     public TileSet(String tileSetElement, String tileSetPath)
     {
         String name = XMLReader.getElementPlus("name", tileSetElement);
-        int tileWidth, tileHeight, spacing, columns;
+        int tileWidth, tileHeight, spacing, margin, columns;
         firstGid = Integer.parseInt(XMLReader.getAttribute("firstgid", tileSetElement));
         tileWidth = Integer.parseInt(XMLReader.getAttribute("tilewidth", tileSetElement));
         tileHeight = Integer.parseInt(XMLReader.getAttribute("tileheight", tileSetElement));
@@ -29,33 +27,24 @@ public class TileSet
             spacing = Integer.parseInt(spacingString);
         else
             spacing = 0;
+        String marginString = XMLReader.getAttribute("margin", tileSetElement);
+        if(!marginString.equals(""))       
+            margin = Integer.parseInt(marginString);
+        else
+            margin = 0;
         tileCount = Integer.parseInt(XMLReader.getAttribute("tilecount", tileSetElement));
         columns = Integer.parseInt(XMLReader.getAttribute("columns", tileSetElement));
         String imageElement = XMLReader.getElementPlus("image", tileSetElement);
         String imagePath = XMLReader.getAttribute("source", imageElement);
-        BufferedImage tileSet = loadImage(tileSetPath + imagePath.replace("../images/", ""));
+        BufferedImage tileSet = DataHandler.loadImage(tileSetPath + imagePath.replace("../images/", ""));
         tiles = new Tile[tileCount];
         int rows = tileCount/columns;
         for(int j = 0; j < rows; j++)
             for(int i = 0; i < columns; i++)
             {
-                tiles[j*columns + i] = new Tile(tileSet.getSubimage(i * (tileWidth + spacing), 
-                        j * (tileHeight + spacing), tileWidth, tileHeight), false);
+                tiles[j*columns + i] = new Tile(tileSet.getSubimage(margin + i * (tileWidth + spacing), 
+                        margin + j * (tileHeight + spacing), tileWidth, tileHeight), false);
             }      
-    }
-    
-    private BufferedImage loadImage(String fileName)
-    {
-        BufferedImage image = null;
-        try 
-        {
-            image = ImageIO.read(new File(fileName));
-        } 
-        catch (IOException ex)
-        {
-            System.out.println("TilePalet: loadImage: Error loading "+fileName);
-        }
-        return image;
     }
     
     public String getName()

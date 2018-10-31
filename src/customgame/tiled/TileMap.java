@@ -3,10 +3,9 @@
  */
 package customgame.tiled;
 
+import customgame.data.DataHandler;
 import java.awt.Color;
 import java.awt.Graphics;
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.ArrayList;
 
 public class TileMap
@@ -17,39 +16,13 @@ public class TileMap
     private int width, height;
     private String name;
 
-    public TileMap(String name, ArrayList<String> file, String tileSetPath)
-    {
-        this.name = name;
-        loadMap(file, tileSetPath);
-    }
-
     public TileMap(String name, String tmxPath, String tileSetPath)
     {
         this.name = name;
-        loadMap(loadTmx(tmxPath), tileSetPath);
+        loadMap(DataHandler.loadData(tmxPath), tileSetPath);
     }
 
-    private ArrayList<String> loadTmx(String tmxPath)
-    {
-        ArrayList<String> mapData = new ArrayList();
-        try
-        {
-            FileReader fileReader = new FileReader(tmxPath);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String line;
-            while ((line = bufferedReader.readLine()) != null)
-            {
-                mapData.add(line);
-            }
-        }
-        catch (Exception ex)
-        {
-            System.out.println("TileMap: loadTmx: Error loading " + tmxPath);
-        }
-        return mapData;
-    }
-
-    private void loadMap(ArrayList<String> file, String tileSetPath)
+    private void loadMap(String file, String tileSetPath)
     {
         String mapElement = XMLReader.getElementPlus("map", file);
         String widthStr = XMLReader.getAttribute("width", mapElement);
@@ -104,7 +77,7 @@ public class TileMap
         int yStart = Math.max(0, yOfset / tileRenderSize);;
         int xEnd = Math.min(width, (xOfset + frameWidth) / tileRenderSize + 1);
         int yEnd = Math.min(height, (yOfset + frameHeight) / tileRenderSize + 1);
-        for (int l = 1; l < tileLayers.size(); l++)
+        for (int l = 0; l < tileLayers.size(); l++)
         {
             int[] layer = tileLayers.get(l).getTileNumbers();
 
